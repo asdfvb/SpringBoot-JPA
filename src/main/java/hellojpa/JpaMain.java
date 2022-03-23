@@ -23,6 +23,17 @@ public class JpaMain {
 /*
 
 - JPA 사용법
+
+            //persist메소드가 실행되면서 영속성 컨텍스트라는 공간에 객체가 담긴다.
+            //그후로 영속성 컨텍스트 안에서 관리되기 시작함.
+            em.persist(객체);
+
+            //객체를 영속성 컨텍스트에서 분리 시킨다.
+            em.detach(객체);
+
+            //객체를 디비에서 삭제 시킴.
+            em.remove(객체);
+
             //객체 조회(Key : 1L)
             Member findMember = em.find(Member.class, 1L);
 

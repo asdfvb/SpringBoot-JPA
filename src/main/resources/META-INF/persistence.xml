@@ -25,7 +25,7 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://java.sun.com/
             <property name="hibernate.format_sql" value="true"/>
             <!-- 쿼리마다 주석을 같이 출력할지 -->
             <property name="hibernamte.use_sql_comments" value="true"/>
-            <property name="hibernate." value=""/>
+            <property name="hibernate.jdbc.batch_size" value="10"/>
 
         </properties>
     </persistence-unit>
