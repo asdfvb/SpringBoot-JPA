@@ -51,7 +51,7 @@ public class JpaMain {
 /*
 * - JPQL 사용법
 *
-* */
+
 
             List<Member> resultList = em.createQuery("select m from Member as m", Member.class)
                     .setFirstResult(0)
@@ -61,6 +61,22 @@ public class JpaMain {
             for(Member member : resultList){
                 System.out.println(">> : " + member.getName());
             }
+* */
+
+            /*
+            * Enumerated 예제
+            *
+            * Enumerated의 디폴트값은 Enumerated.ORDINAL 이다 값의 순서를 넣어준다.
+            * - RoleType기준
+            * 1. EnumType.ORDIN : 0(USER), 1(ADMIN)
+            * 2. EnumType.STRING : USER(0), ADMIN(1)
+            * */
+            Member member = new Member();
+            member.setId(2L);
+            member.setUsername("A");
+            member.setRoleType(RoleType.ADMIN);
+
+            em.persist(member);
 
             tx.commit();
         } catch (Exception e) {
