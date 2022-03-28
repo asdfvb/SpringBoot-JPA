@@ -24,8 +24,10 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://java.sun.com/
             <!-- 콘솔에 출력되는 쿼리를 보기 좋게 정렬해서 보여줄지(포맷) -->
             <property name="hibernate.format_sql" value="true"/>
             <!-- 쿼리마다 주석을 같이 출력할지 -->
-            <property name="hibernamte.use_sql_comments" value="true"/>
-            <property name="hibernate." value=""/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+            <!-- 애플리케이션이 실행되면서 필요한 DDL문을 생성하여 실행시켜준다. -->
+            <!-- 절대 실서버에서는 사용하면 안됨. -->
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
 
         </properties>
     </persistence-unit>

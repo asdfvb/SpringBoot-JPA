@@ -51,7 +51,7 @@ public class JpaMain {
 /*
 * - JPQL 사용법
 *
-* */
+
 
             List<Member> resultList = em.createQuery("select m from Member as m", Member.class)
                     .setFirstResult(0)
@@ -61,7 +61,7 @@ public class JpaMain {
             for(Member member : resultList){
                 System.out.println(">> : " + member.getName());
             }
-
+* */
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
