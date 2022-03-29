@@ -101,3 +101,17 @@
   * 기본키 생성을 데이터베이스에 위임 (MySQL - Auto Increment)
 * GenerationType.Sequence (Oracle - Sequence)
 * GenerationType.Table (모든 데이터베이스에 적용 가능하나 성능에 이슈가 있을수 있다.)
+
+
+### 단방향 연관관계
+
+- @ManyToOne : Member 객체 : Team 객체 는 *:1 관계이다.<br>
+  Member객체에서 Team객체를 가지는 변수에 지정해주는 명령어.
+
+### 양방향 연관관계
+객체간의 양방향 관계는 사실 멤버->팀, 팀->멤버 각 단방향 2개인 상태를 말한다.<Br>
+  → 멤버 객체의 TEAM 변수를 수정할 것인지, 팀 객체의 멤버 변수를 수정할 것인지 혼돈이 생긴다.
+- mappedBy(등록 및 수정 등.. 관리를 받을 객체 변수에 사용) <BR> 
+  : 관게가 있는 객체의 변수명을 지정해주면된다. (Member객체의 team변수명과 매핑중이다 라는뜻)
+- JoinColumn (등록 및 수정 등 관리를 할 객체 변수에 사용) - 연관관계의 주인(Owner)
+  

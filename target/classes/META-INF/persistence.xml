@@ -8,7 +8,7 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://java.sun.com/
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value=""/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/jpashop"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
 
             <!--
                 데이터베이스 방언( 방언 : SQL표준을 지키지 않는 특정 데이터베이스들만의 기능) ex) MYSQL - SUBSTRING(), ORACLE - SUBSTR()
@@ -26,7 +26,7 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://java.sun.com/
             <!-- 쿼리마다 주석을 같이 출력할지 -->
             <property name="hibernamte.use_sql_comments" value="true"/>
             <property name="hibernate.jdbc.batch_size" value="10"/>
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="none"/>
         </properties>
     </persistence-unit>
 </persistence>
