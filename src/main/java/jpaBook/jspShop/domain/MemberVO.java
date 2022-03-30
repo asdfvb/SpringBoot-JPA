@@ -1,6 +1,8 @@
 package jpaBook.jspShop.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="MEMBER")
@@ -9,7 +11,11 @@ public class MemberVO {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="MEMBER_ID")
     private long id;
-    private String anme;
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
+
+    private String name;
     private String city;
     private String street;
     private String zipcode;
@@ -22,12 +28,20 @@ public class MemberVO {
         this.id = id;
     }
 
-    public String getAnme() {
-        return anme;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public void setAnme(String anme) {
-        this.anme = anme;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCity() {

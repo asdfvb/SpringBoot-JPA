@@ -16,9 +16,11 @@ public class Member {
     /*@Column(name="TEAM_ID")
     private Long teamId;*/
 
-    @ManyToOne  //Member객체와 Team객체와의 관계가 *:1 관계라는것을 명시해준다.
-    @JoinColumn(name="TEAM_ID") //조인할 컬럼을 명시해준다.
-    private Team team;
+    /* -다대일 양방향 코드
+        @ManyToOne  //Member객체와 Team객체와의 관계가 *:1 관계라는것을 명시해준다.
+        @JoinColumn(name="TEAM_ID") //조인할 컬럼을 명시해준다.
+        private Team team;
+    */
 
     public Long getId() {
         return id;
@@ -36,7 +38,11 @@ public class Member {
         this.username = username;
     }
 
-    public Team getTeam() {
+    @ManyToOne
+    @JoinColumn(name="TEAM_ID", insertable=false, updatable=false)
+    private Team team;
+
+    /*public Team getTeam() {
         return team;
     }
 
@@ -59,7 +65,9 @@ public class Member {
             em.persist(member);
             team.getMembers().add(member); //** 매번 두코드를 작성하기엔 힘들고 실수할 경우가 많다. 그래서 아래코드를 작성하여 위에 'member.setTeam(tema);' 코드 실행시 자동 등록되도록 하는 코드이다.
         *
-        * */
+        *
+
         this.team.getMembers().add(this);
-    }
+
+    }*/
 }

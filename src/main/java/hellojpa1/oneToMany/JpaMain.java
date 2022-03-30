@@ -23,6 +23,7 @@ public class JpaMain {
 
         try {
 
+            /* 멤버 : 팀 (다대일 양방향 예제 코드)
             Team team = new Team();
             team.setName("TeamA");
             em.persist(team);
@@ -46,7 +47,18 @@ public class JpaMain {
             for(Member m : members){
                 System.out.println(">> : " + m.getUsername());
             }
+            */
 
+            /* -일대다 관계 예제
+            Member member = new Member();
+            member.setUsername("member1");
+            em.persist(member);
+            Team team = new Team();
+            team.setName("teamA");
+            team.getMembers().add(member);
+
+            em.persist(team);
+             */
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
