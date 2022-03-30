@@ -24,7 +24,6 @@ public class JpaMain {
         try {
 
             Team team = new Team();
-
             team.setName("TeamA");
             em.persist(team);
 
@@ -32,8 +31,10 @@ public class JpaMain {
             Member member = new Member();
             member.setUsername("member1");
             member.setTeam(team);
-
             em.persist(member);
+
+            //해당 코드 주석 원인은 Member 객체에 setTeam메소드를 참고해주세요.
+//            team.getMembers().add(member);
 
             em.flush();
             em.clear();
