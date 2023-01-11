@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name="MEMBER")
-public class MemberVO {
+public class MemberVO  extends SupportEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="MEMBER_ID")

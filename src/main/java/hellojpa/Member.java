@@ -2,6 +2,7 @@ package hellojpa;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 //JPA사용 객체라고 표시
@@ -12,7 +13,7 @@ import java.util.Date;
 //ex) allocationSize = 50 : nextValue가 50이 될때까지 메모리에서 호출해서 사용하고 51이 될때 nextValue를 해주는 방식이다.
 //서버가 내려갈때 메모리가 초기화가 되기때문에 너무 높은 값으로 해놓으면 시퀀스 값이 중간에 비어 버릴수가 있다.
 @SequenceGenerator(name ="member_seq_generator", sequenceName = "member_seq", initialValue = 1, allocationSize = 1)
-public class Member {
+public class Member extends BaseEntity{
     @Id //키를 직접 할당할 경우
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_gnenerator")
     private Long id;
@@ -25,14 +26,14 @@ public class Member {
     @Enumerated
     private RoleType roleType;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
 
     @Lob
     private String description;
+
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
 
     public Member(){
 
@@ -68,22 +69,6 @@ public class Member {
 
     public void setRoleType(RoleType roleType) {
         this.roleType = roleType;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
     }
 
     public String getDescription() {

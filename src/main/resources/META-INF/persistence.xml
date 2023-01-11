@@ -8,7 +8,7 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://java.sun.com/
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value=""/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/jpashop"/>
 
             <!--
                 데이터베이스 방언( 방언 : SQL표준을 지키지 않는 특정 데이터베이스들만의 기능) ex) MYSQL - SUBSTRING(), ORACLE - SUBSTR()

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="MBR_ONETOMANY")
-public class Member {
+public class Members {
 
     @Id @GeneratedValue
     @Column(name="MEMBER_ID")
@@ -39,8 +39,14 @@ public class Member {
     }
 
     @ManyToOne
+    //일대다 관계에서 양방향 연관관계를 만들기 위한 설정으로 팀 TEAM_ID가 주인이기때문에 해당 변수는 등록,수정을 막아서 양방향관계를 만든다.
     @JoinColumn(name="TEAM_ID", insertable=false, updatable=false)
     private Team team;
+
+    @OneToOne
+    @JoinColumn(name="LOCKER_ID")
+    private Lockers locker;
+
 
     /*public Team getTeam() {
         return team;

@@ -3,7 +3,7 @@ package jpaBook.jspShop.domain;
 import javax.persistence.*;
 
 @Entity
-public class OrderItem {
+public class OrderItem  extends SupportEntity{
 
     @Id
     @GeneratedValue
@@ -16,7 +16,7 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name="ITEM_ID")
-    private Item itemId;
+    private Items itemId;
 
     private int orderPrice;
     private int count;
@@ -37,11 +37,11 @@ public class OrderItem {
         this.order = order;
     }
 
-    public Item getItemId() {
+    public Items getItemId() {
         return itemId;
     }
 
-    public void setItemId(Item itemId) {
+    public void setItemId(Items itemId) {
         this.itemId = itemId;
     }
 

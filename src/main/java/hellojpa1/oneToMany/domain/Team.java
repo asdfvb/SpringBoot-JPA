@@ -19,7 +19,7 @@ public class Team {
 
     @OneToMany
     @JoinColumn(name="TEAM_ID")
-    private List<Member> members = new ArrayList<>();
+    private List<Members> members = new ArrayList<>();
 
     private String name;
 
@@ -39,11 +39,11 @@ public class Team {
         this.name = name;
     }
 
-    public List<Member> getMembers() {
+    public List<Members> getMembers() {
         return members;
     }
 
-    public void setMembers(List<Member> members) {
+    public void setMembers(List<Members> members) {
         this.members = members;
     }
 }
