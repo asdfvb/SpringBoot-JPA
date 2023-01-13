@@ -26,8 +26,6 @@ public class Member extends BaseEntity{
     @Enumerated
     private RoleType roleType;
 
-
-
     @Lob
     private String description;
 

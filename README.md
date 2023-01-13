@@ -163,3 +163,73 @@
   - 상속 관계 매핑 : 상위 클래스 및 하위 클래스가 모두 따로따로 테이블이 생성된다.
   - MapperSuperClass : 하위클래스에 모든 컬럼이 같이 생성된다.
 
+
+### Proxy
+
+- find() : 구문 실행 즉시 쿼리가 실행된다.
+- getReference() : 객체의 영속성 컨텍스트에 없는 정보가 사용되기전까지는 쿼리가 실행되지않는다.
+
+![img.png](src/main/resources/img/proxyinit.png)
+
+
+**- 프록시 객체 초기화 순서 (이미지 설명)**
+
+    1. 클라이언트가 getReference()메소드를 실행
+    2. target이 Null인 Member Proxy객체가 생성되어 반환됨.
+    3. 클라이언트가 member.getName() 메소드를 실행
+    4. 영속성 컨텍스트에서 찾아보고 값이 없으면 그때서 디비에서 조회를 실행 ( 영속성 컨텍스트에 값이 있으면 조회하지 않음 )
+    5. 디비에서 조회된 결과를 실제 Member 객체로 생성시킴
+    6. 실제 Member 객체의 주소값을 Member Proxy 객체의 target에 참조 시킴.
+  
+
+**- Proxy 특징**
+
+    1. 실제 클래스를 상속받아서 만들어짐
+    2. 실제 클래스와 겉 모양이 같다. 
+    3. 사용하는 입장에서는 진짜 객체인지 프록시 객체인지 구분하지 않고 사용하면 됨(이론상으론!) 
+    4. Proxy 객체는 실제 객체의 참조(target)를 보관
+    5. 프록시 객체를 호출하면 프록시 객체는 실제 객체의 메소드 호출
+    6. 프록시 객체를 초기화 할대 프록시 객체가 실제 엔티티로 바뀌는 것은 아님,
+        초기화되면 프록시 객체를 통해서 실제 엔티티에 접근 가능 (프록시 target이 실제 객체의 주소값을 가짐)
+    7. 프록시 객체는 원본 엔티티를 상속받음, 객체의 타입체크시 주의해야함
+        (== 비교 안됨.. 대신 `객체 instance of 클래스` 사용)
+    8. 영속성 컨텍스트에 찾는 엔티티가 이미 있으면 em.getReference()를 호출해도 실제 엔티티반환
+        반대로 Proxy 객체가 이미 있으면 em.find()로 실제 객체를 조회시켜도 프록시 객체가 반환됨.
+    9. 영속성 컨텍스트의 도움을 받을 수 없는 준영속(em.detach(객체), em.close() ..) 상태일때, 프록시를 초기화시 문제 발생
+        (하이버네이트는 org.hibernate.LazyInitializationException예외를 던짐)
+
+**- 프록시 확인 유틸**
+
+    1. 프록시 인스턴스의 초기화 여부 확인
+        EntityManagerFactory 변수.persistenceUnitUtil.isLoaded(Obejct entity);
+
+    2. 프록시 강제 초기화
+        Hibernate.initialize(프록시 객체) 
+        하이버네이트에서 지원해주는 기능(JPA표준에서는 지원안함, 따라서 객체의 메소드를 강제 호출시켜서 프록시 초기화 해야함)
+        
+
+### 즉시로딩 vs 지연로딩
+
+#### 지연로딩 - 참고) hellojpa1.Member.class Team 인스턴스변수
+    @ManyToOne(fetch = FetchType.LAZY) Lazy 설정된 변수는 프록시 클래스가 반환된다
+
+#### 프록시와 즉시로딩 주의
+    1. 가급적 지연로딩만 사용(실무에서 특히!)
+    2. 즉시 로딩을 적용하면 예상하지 못한 SQL이 발생됨. (JOIN 테이블이 5개이상 있을시 성능 문제가 있음)
+    3. 즉시 로딩은 JPQL에서 N+1문제를 일으킨다.
+    4. @OneToMany, @ManyToMany는 기본이 지연 로딩
+    5. @ManyToOne, @OneToOne은 기본이 즉시 로딩 -> Lazy로 설정 해야함.
+
+
+
+### 영속성 전이: CASCADE - 참고) hellojpa.Parent, hellojpa.Children 인스턴스 변수
+
+특정 엔티티를 영속 상태로 만들 때 연관된 엔티티도 함께 영속 상태로 만들고 싶을 때
+예) 부모 엔티티를 저장할 때 자식 엔티티도 함께 저장.
+
+- cascade = CascadeType.ALL 설정을 통하여 Parent 객체 등록시 Children까지 모두 등록됨.
+
+- casecade 주의사항
+  - 영속성 전이는 연관관계를 매핑하는 것과 아무 관련이 없음
+  - 엔티티를 영속화할 때 연관된 엔티티도 함께 영속화하는 편리함을 제공할 뿐이다.
+

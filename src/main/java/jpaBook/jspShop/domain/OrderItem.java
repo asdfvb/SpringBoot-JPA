@@ -2,6 +2,8 @@ package jpaBook.jspShop.domain;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 public class OrderItem  extends SupportEntity{
 
@@ -10,11 +12,11 @@ public class OrderItem  extends SupportEntity{
     @Column(name = "ORDER_ITEM_ID")
     private long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name="ORDER_ID")
     private Order order;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name="ITEM_ID")
     private Items itemId;
 

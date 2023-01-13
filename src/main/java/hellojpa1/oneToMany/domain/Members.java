@@ -38,9 +38,16 @@ public class Members {
         this.username = username;
     }
 
-    @ManyToOne
-    //일대다 관계에서 양방향 연관관계를 만들기 위한 설정으로 팀 TEAM_ID가 주인이기때문에 해당 변수는 등록,수정을 막아서 양방향관계를 만든다.
-    @JoinColumn(name="TEAM_ID", insertable=false, updatable=false)
+    /*
+        @ManyToOne
+        //일대다 관계에서 양방향 연관관계를 만들기 위한 설정으로 팀 TEAM_ID가 주인이기때문에 해당 변수는 등록,수정을 막아서 양방향관계를 만든다.
+        @JoinColumn(name="TEAM_ID", insertable=false, updatable=false)
+        private Team team;
+    */
+
+    //FetchType.LAZY 설정시 프록시 객체로 생성됨. 따라서 멤버클래스가 생성되도 팀은 조회되지 않고 member.getTeam()이 조회될때 팀이 조회됨.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
     private Team team;
 
     @OneToOne

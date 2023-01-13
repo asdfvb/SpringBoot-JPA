@@ -4,15 +4,18 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 public class Category  extends SupportEntity{
     @Id @GeneratedValue
     private long id;
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "PARENT_ID")
     private Category parent;
 
+    //oneToMany는 기본이 LAZY이기때문에 설정 안해줘도댐
     @OneToMany(mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
 

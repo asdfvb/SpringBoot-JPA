@@ -1,5 +1,7 @@
 package hellojpa1.oneToMany;
 
+import hellojpa1.oneToMany.domain.Members;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -55,6 +57,8 @@ public class JpaMain {
 
             em.persist(team);
              */
+
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
